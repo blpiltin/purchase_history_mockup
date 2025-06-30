@@ -1,3 +1,25 @@
+<!--
+  Project: MIS 5350 Final Exam – Purchase History UI
+  File: orders.html
+  Author: Brian Piltin
+  Description:
+    Orders page for "Products 'R Us" mock application.
+    Allows users to view and filter past purchases by date range and category.
+    Includes export features for CSV and PDF.
+
+  Libraries Used:
+    - Bootstrap 5 (layout and responsiveness)
+    - Flatpickr (date picker)
+    - PapaParse (CSV export)
+    - jsPDF + AutoTable (PDF export)
+
+  Created: June 2025
+  License: MIT-style (educational use)
+
+  Attributions:
+    Code and design guidance provided with the help of OpenAI ChatGPT (2024).
+-->
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -51,20 +73,14 @@
 
       <h2 class="mb-3">Purchase History</h2>
 
-      <div class="row mb-3 g-2">
-        <div class="col-12 col-md">
-          <input class="form-control" id="startDate" placeholder="Start Date" type="text" />
+      <div class="row mb-4 g-2">
+        <div class="col-12 col-md-3">
+          <input type="text" id="startDate" class="form-control" placeholder="Start Date">
         </div>
-        <div class="col-12 col-md">
-          <input class="form-control" id="endDate" placeholder="End Date" type="text" />
+        <div class="col-12 col-md-3">
+          <input type="text" id="endDate" class="form-control" placeholder="End Date">
         </div>
-        <div class="col-12 col-md-auto">
-          <button class="btn btn-primary w-100" onclick="filterData()">Filter</button>
-        </div>
-      </div>
-
-      <div class="row mb-3">
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-3">
           <select id="categoryFilter" class="form-select">
             <option value="">All Categories</option>
             <option value="Office Supplies">Office Supplies</option>
@@ -75,6 +91,9 @@
             <option value="Hardware">Hardware</option>
             <option value="Training">Training</option>
           </select>
+        </div>
+        <div class="col-12 col-md-3">
+          <button class="btn btn-primary w-100" onclick="filterData()">Filter</button>
         </div>
       </div>
 

@@ -1,3 +1,26 @@
+/**
+ * Project: MIS 5350 Final Exam – Purchase History UI
+ * File: script.js
+ * Author: Brian Piltin
+ * Description:
+ *   Client-side JavaScript functionality for the Orders page.
+ *   Handles:
+ *     - Loading purchase data from CSV
+ *     - Filtering by date range and category
+ *     - Displaying a scrollable table of results
+ *     - Exporting data to CSV and PDF formats
+ *
+ * Libraries Used:
+ *   - PapaParse (CSV parsing)
+ *   - jsPDF + AutoTable (PDF export)
+ *   - Flatpickr (date picker)
+ *
+ * Created: June 2025
+ * License: MIT-style (educational use)
+ * 
+ * Attributions:
+ *   Assisted by OpenAI ChatGPT (2024) for development guidance and code generation.
+ */
 
 let purchases = [];
 let filtered = [];
