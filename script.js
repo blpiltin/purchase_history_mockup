@@ -1,0 +1,63 @@
+
+let purchases = [];
+let filtered = [];
+
+function loadCSV() {
+  fetch('data/mock_purchases.csv')
+    .then(response => response.text())
+    .then(csv => {
+      const result = Papa.parse(csv, { header: true });
+      purchases = result.data;
+      displayData(purchases);
+    });
+}
+
+function displayData(data) {
+  const tableBody = document.getElementById('purchaseTableBody');
+  tableBody.innerHTML = '';
+  if (!data.length) {
+    document.getElementById('noResults').classList.remove('d-none');
+    return;
+  } else {
+    document.getElementById('noResults').classList.add('d-none');
+  }
+
+  data.forEach(p => {
+    const row = `<tr>
+      <td>${p.Date}</td>
+      <td>${p.Merchant}</td>
+      <td>$${p.Amount}</td>
+      <td>${p.Category}</td>
+    </tr>`;
+    tableBody.innerHTML += row;
+  });
+}
+
+function filterData() {
+  const start = new Date(document.getElementById('startDate').value);
+  const end = new Date(document.getElementById('endDate').value);
+  filtered = purchases.filter(p => {
+    const [year, month, day] = p.Date.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
+    return date >= start && date <= end;
+  });
+  displayData(filtered);
+}
+
+function exportCSV() {
+  const dataToExport = filtered.length ? filtered : purchases;
+  const csv = Papa.unparse(dataToExport);
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'filtered_purchases.csv';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+window.onload = () => {
+  flatpickr("#startDate", {});
+  flatpickr("#endDate", {});
+  loadCSV();
+};
