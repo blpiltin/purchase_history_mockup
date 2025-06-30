@@ -38,10 +38,16 @@ function displayData(data) {
 function filterData() {
    const start = new Date(document.getElementById('startDate').value);
    const end = new Date(document.getElementById('endDate').value);
+   const selectedCategory = document.getElementById('categoryFilter').value;
+
    filtered = purchases.filter(p => {
-      const date = new Date(p.Date);
-      return date >= start && date <= end;
+      const [year, month, day] = p.Date.split('-').map(Number);
+      const date = new Date(year, month - 1, day);
+      const dateInRange = (!isNaN(start) && !isNaN(end)) ? (date >= start && date <= end) : true;
+      const categoryMatch = selectedCategory ? p.Category === selectedCategory : true;
+      return dateInRange && categoryMatch;
    });
+
    displayData(filtered);
 }
 
