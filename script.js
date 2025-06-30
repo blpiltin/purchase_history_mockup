@@ -57,6 +57,27 @@ function exportCSV() {
    document.body.removeChild(link);
 }
 
+async function exportPDF() {
+   const { jsPDF } = window.jspdf;
+   const doc = new jsPDF();
+
+   const dataToExport = filtered.length ? filtered : purchases;
+
+   const tableData = dataToExport.map(p => [
+      p.Date, p.Merchant, `$${p.Amount}`, p.Category
+   ]);
+
+   doc.text("Purchase History", 14, 15);
+   doc.autoTable({
+      head: [["Date", "Merchant", "Amount", "Category"]],
+      body: tableData,
+      startY: 20,
+      styles: { fontSize: 10 }
+   });
+
+   doc.save("purchase_history.pdf");
+}
+
 window.onload = () => {
    flatpickr("#startDate", {});
    flatpickr("#endDate", {});
