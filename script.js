@@ -37,8 +37,7 @@ function filterData() {
   const start = new Date(document.getElementById('startDate').value);
   const end = new Date(document.getElementById('endDate').value);
   filtered = purchases.filter(p => {
-    const [year, month, day] = p.Date.split('-').map(Number);
-    const date = new Date(year, month - 1, day);
+    const date = new Date(p.Date);
     return date >= start && date <= end;
   });
   displayData(filtered);
